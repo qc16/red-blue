@@ -36,20 +36,23 @@ export default class Log extends React.Component {
 
     this.setState({ artList })
 
-    const { orders, count } = await this.props.seaport.api.getOrders({
-      owner: '0x9999996A1914831D5c559cf2E305e89158c0c4Bb',
-      side: this.state.side,
-      limit: 100
-      // Possible query options:
-      // 'asset_contract_address'
-      // 'taker'
-      // 'token_id'
-      // 'token_ids'
-      // 'sale_kind'
-      
-    }, this.state.page)
+    try {
+      const { orders, count } = await this.props.seaport.api.getOrders({
+        owner: '0x9999996A1914831D5c559cf2E305e89158c0c4Bb',
+        side: this.state.side,
+        limit: 100
+        // Possible query options:
+        // 'asset_contract_address'
+        // 'taker'
+        // 'token_id'
+        // 'token_ids'
+        // 'sale_kind'
+      }, this.state.page)
 
     this.setState({ orders, total: count, loading: false })
+    } catch (error) {
+      console.log(error, 'get orders error')
+    }
   }
 
   render() {
@@ -57,7 +60,7 @@ export default class Log extends React.Component {
     const { accountAddress } = this.props
     return (
       <div id="Log">
-        <Loading text="Waiting for assets ready..." fullscreen={true} loading={loading}>
+        <Loading className="box-loading" text="Waiting for assets ready..." fullscreen={true} loading={loading}>
         <Box artList={artList} orders={orders} seaport={this.props.seaport} accountAddress={accountAddress}/>
         {/* {orders != null
         

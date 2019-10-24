@@ -188,9 +188,6 @@ const BoxDiv = styled.div`
       }
     }
     footer {
-      position: absolute;
-      bottom: 0;
-      left: 0;
       background: #3C3B6E;
       width: 100%;
       height: 48px;

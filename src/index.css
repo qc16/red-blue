@@ -23,3 +23,6 @@ a,a:hover{color:#333;}
 button{list-style-type:none;border:none;}
 input{outline:none;border:none;}
 
+.box-loading {
+  overflow-y: scroll;
+}
