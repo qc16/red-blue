@@ -60,7 +60,7 @@ export default class Log extends React.Component {
     const { accountAddress } = this.props
     return (
       <div id="Log">
-        <Loading className="box-loading" text="Waiting for assets ready..." fullscreen={true} loading={loading}>
+        <Loading className={orders && 'box-loading'} text="Waiting for assets ready..." fullscreen={true} loading={loading}>
         <Box artList={artList} orders={orders} seaport={this.props.seaport} accountAddress={accountAddress}/>
         {/* {orders != null
         

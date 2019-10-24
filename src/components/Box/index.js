@@ -113,8 +113,6 @@ export default class Box extends React.Component {
             })}
             </ul>
           </div>
-          <footer>
-          </footer>
           <div className="asset-box" style={{display: display, left, top}}>
             <div className="con">
               <div className="inner-con">
@@ -145,6 +143,7 @@ export default class Box extends React.Component {
 
 const BoxDiv = styled.div`
   .layout {
+    margin-bottom: 60px;
     .top {
       background: #DE2910;
       height: 48px;
@@ -186,11 +185,6 @@ const BoxDiv = styled.div`
           width: 100%;
         }
       }
-    }
-    footer {
-      background: #3C3B6E;
-      width: 100%;
-      height: 48px;
     }
     .asset-box {
       position: fixed;

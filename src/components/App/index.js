@@ -35,6 +35,7 @@ export default class App extends React.Component {
             seaport={this.seaport}
             accountAddress={this.state.accountAddress} />
         </main>
+        <footer></footer>
       </div>
     )
   }
