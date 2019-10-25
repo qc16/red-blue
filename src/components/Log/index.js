@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Loading } from 'element-react';
+import { Loading, Message } from 'element-react';
 import Box from '../Box'
 import { generateBoxes, calcGradient } from '../../util';
 
@@ -52,6 +52,9 @@ export default class Log extends React.Component {
     this.setState({ orders, total: count, loading: false })
     } catch (error) {
       console.log(error, 'get orders error')
+      this.setState({ loading: false }, () => {
+        Message.error('Get assets error, please try again');
+      })
     }
   }
 

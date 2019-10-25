@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { Button } from 'element-react';
+import { Button, MessageBox } from 'element-react';
 import { connectWallet } from '../../constants';
 import SalePrice from '../common/SalePrice';
 import Account from '../Account';
@@ -23,9 +23,10 @@ export default class Box extends React.Component {
 
   async fulfillOrder() {
     const { order } = this.state
-    const { accountAddress } = this.props
+    let { accountAddress } = this.props
     if (!accountAddress) {
       await connectWallet()
+      return false
     }
     try {
       this.setState({ creatingOrder: true })
@@ -50,6 +51,9 @@ export default class Box extends React.Component {
     const buyAsset = async (event) => {
       event.stopPropagation();
       event.preventDefault();
+      if (!window.ethereum) {
+        return MessageBox.alert('您还没有安装metamask，无法完成购买', '温馨提示');
+      }
       if (accountAddress && !canAccept) {
         this.setState({
           errorMessage: "You already own this asset!"
@@ -80,7 +84,7 @@ export default class Box extends React.Component {
       const rect = event.target.getBoundingClientRect()
       const display = 'block'
       const leftPos = rect.left - 50 + 'px'
-      const topPos = rect.top - 175 + 'px'
+      const topPos = rect.top - 145 + 'px'
 
       const order = orders && orders.find(v => v.asset.tokenId === String(pos))
       this.setState({
@@ -142,32 +146,41 @@ export default class Box extends React.Component {
 }
 
 const BoxDiv = styled.div`
+  height: 100%;
   .layout {
-    margin-bottom: 60px;
+    height: 93.7%;
+    header {
+      height: 18%;
+    }
     .top {
       background: #DE2910;
-      height: 48px;
+      height: 35%;
     }
     .logo {
+      height: 65%;
       img {
         margin: 0 auto;
+        height: 100%;
       }
     }
     .container-box {
-      width: 820px;
+      width: 50%;
+      height: calc(82% - 80px);
       margin: 40px auto;
       position: relative;
       ul, li {
         list-style-type: none;
       }
       .final {
+        height: 90%;
+        margin: 5% 0;
         overflow: hidden;
       }
       .final {
         li {
           float: left;
-          width: 72px;
-          height: 48px;
+          width: calc(10% - 10px);
+          height: calc(10% - 10px);
           margin: 5px;
           cursor: pointer;
         }
@@ -190,8 +203,8 @@ const BoxDiv = styled.div`
       position: fixed;
       top: 100px;
       left: 50px;
-      width: 240px;
-      height: 180px;
+      width: 220px;
+      height: 150px;
       display: none;
       &::before {
         content: '';
@@ -234,11 +247,11 @@ const BoxDiv = styled.div`
       }
       ul {
         text-align: left;
-        font-size: 16px;
+        font-size: 14px;
         margin: 0;
         li {
-          height: 30px;
-          line-height: 30px;
+          height: 22px;
+          line-height: 22px;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -246,16 +259,18 @@ const BoxDiv = styled.div`
             font-weight: bold;
           }
           &.desc {
-            height: 50px;
-            line-height: 25px;
+            height: 40px;
+            line-height: 22px;
             white-space: normal;
           }
         }
       }
       .buy {
+        position: relative;
         background: #DE2910;
         border-color: #DE2910;
         margin-top: 10px;
+        z-index: 999;
         &.active:focus, &:active:focus {
           box-shadow: none;
         }

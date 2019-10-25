@@ -22,7 +22,7 @@ export async function connectWallet() {
       // Put your Portis API key here
     })
   } else if (window.ethereum) {
-    window.ethereum.enable()
+    await window.ethereum.enable()
   } else {
     const errorMessage = 'You need an Ethereum wallet to interact with this marketplace. Unlock your wallet, get MetaMask.io or Portis on desktop, or get Trust Wallet or Coinbase Wallet on mobile.'
     alert(errorMessage)
