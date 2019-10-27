@@ -76,6 +76,7 @@ export default class Box extends React.Component {
       <Button
         disabled={creatingOrder}
         onClick={buyAsset}
+        loading={creatingOrder}
         className="buy"
         type="primary">
         
