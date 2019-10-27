@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { Button, MessageBox } from 'element-react';
-import { connectWallet } from '../../constants';
+import { connectWallet, toUnitAmount } from '../../constants';
 import SalePrice from '../common/SalePrice';
 import Account from '../Account';
 
@@ -31,7 +31,17 @@ export default class Box extends React.Component {
     try {
       this.setState({ creatingOrder: true })
       console.log(order, accountAddress, 'buying----')
-      await this.props.seaport.fulfillOrder({ order, accountAddress })
+      // await this.props.seaport.fulfillOrder({ order, accountAddress })
+      const { currentPrice, paymentTokenContract, asset: { tokenId, tokenAddress } } = order
+      const  price = toUnitAmount(currentPrice, paymentTokenContract)
+      await this.props.seaport.createBuyOrder({
+        asset: {
+          tokenId,
+          tokenAddress,
+        },
+        accountAddress,
+        startAmount: parseFloat(price)
+      })
     } catch(error) {
       this.onError(error)
     } finally {

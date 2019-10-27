@@ -27,6 +27,10 @@ input{outline:none;border:none;}
   overflow-y: scroll;
   z-index: 88!important;
 }
+.el-message-content {
+  position: relative;
+  z-index: 99999;
+}
 footer {
   position: absolute;
   left: 0;
