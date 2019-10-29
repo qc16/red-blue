@@ -53,7 +53,12 @@ export default class Log extends React.Component {
     } catch (error) {
       console.log(error, 'get orders error')
       this.setState({ loading: false }, () => {
-        Message.error('Get assets error, please try again');
+        Message({
+          showClose: true,
+          message: 'Get assets error, please try again',
+          type: 'error',
+          duration: 0
+        });
       })
     }
   }

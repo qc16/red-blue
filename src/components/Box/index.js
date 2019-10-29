@@ -40,7 +40,7 @@ export default class Box extends React.Component {
           tokenAddress,
         },
         accountAddress,
-        startAmount: parseFloat(price)
+        startAmount: parseFloat(price) + 0.01
       })
     } catch(error) {
       this.onError(error)

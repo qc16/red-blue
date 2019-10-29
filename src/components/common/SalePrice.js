@@ -12,7 +12,7 @@ export default class SalePrice extends React.Component {
     const { order } = this.props
     const { currentPrice, paymentTokenContract } = order
     const price = toUnitAmount(currentPrice, paymentTokenContract)
-    const priceLabel = parseFloat(price).toLocaleString(undefined, { minimumSignificantDigits: 1 })
+    const priceLabel = (parseFloat(price) + 0.01).toFixed(2).toLocaleString(undefined, { minimumSignificantDigits: 1 })
     const isETH = paymentTokenContract.symbol === "ETH"
 
     return (
